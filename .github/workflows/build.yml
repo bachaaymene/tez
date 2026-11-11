@@ -17,6 +17,7 @@ jobs:
         continue-on-error: true
         with:
           root_file: tez.tex
+          pre_compile: ln -s . Thesis_ICD
           args: -pdf -f -interaction=nonstopmode -file-line-error
 
       - name: Upload PDF
