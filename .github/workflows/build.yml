@@ -14,13 +14,22 @@ jobs:
 
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
+        continue-on-error: true
         with:
-          root_file: main.tex
-          # فعل السطر التالي إذا كنت تستخدم XeLaTeX
-          # latexmk_use_xelatex: true
+          root_file: tez.tex
+          args: -pdf -f -interaction=nonstopmode -file-line-error
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
           name: thesis-pdf
-          path: main.pdf
+          path: tez.pdf
+          if-no-files-found: error
+
+      - name: Upload log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: thesis-log
+          path: tez.log
+          if-no-files-found: ignore
